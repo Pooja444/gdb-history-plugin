@@ -1,6 +1,6 @@
 import atexit
 
-from save_history.SpreadsheetHandlerFactory import getSpreadsheetHandler
+from spreadsheet.SpreadsheetHandlerFactory import getSpreadsheetHandler
 from breakpoint.BreakPointHandlerFactory import getBreakpointHandler
 from registers.RegistersHandlerFactory import getRegistersHandler
 

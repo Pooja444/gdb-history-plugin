@@ -1,6 +1,6 @@
 from breakpoint.BreakPointSheetBuilder import BreakPointSheetBuilder
 from registers.RegistersSheetBuilder import RegistersSheetBuilder
-from save_history.SpreadsheetBuilder import SpreadsheetBuilder
+from spreadsheet.SpreadsheetBuilder import SpreadsheetBuilder
 
 sheetBuilders = {}
 

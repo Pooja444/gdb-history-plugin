@@ -1,16 +1,13 @@
 import gdb
 
-from save_history.SpreadsheetHandlerFactory import getSpreadsheetHandler
-from save_history.SpreadsheetBuilderFactory import getSheetBuilder
+from spreadsheet.SpreadsheetHandlerFactory import getSpreadsheetHandler
+from spreadsheet.SpreadsheetBuilderFactory import getSheetBuilder
 from util.utils import getSubstring
 
 class RegistersHandler:
     def __init__(self) -> None:
-        self.buildSheet(getSpreadsheetHandler().workbook)
+        self.worksheet = getSheetBuilder("registers").buildSheet(getSpreadsheetHandler().workbook, False)
         pass
-
-    def buildSheet(self, workbook):
-        self.worksheet = getSheetBuilder("registers").createSheet(workbook)
     
     def fillRegisters(self, breakpoint):
         if breakpoint.breakpointsHit == 0:

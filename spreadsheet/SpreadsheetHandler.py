@@ -1,4 +1,6 @@
 import xlsxwriter
+import os
+
 from datetime import datetime
 
 class SpreadsheetHandler:
@@ -6,7 +8,9 @@ class SpreadsheetHandler:
         pass
 
     def createSpreadsheet(self) -> str:
-        workbookName = f"data/gdb_history_{datetime.now()}.xlsx"
+        if not os.path.isdir("history"):
+            os.mkdir("history")
+        workbookName = f"history/gdb_history_{str(datetime.now()).replace(' ', '_')}.xlsx"
         self.workbook = xlsxwriter.Workbook(workbookName)
         return workbookName
 

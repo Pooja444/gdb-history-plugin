@@ -1,4 +1,4 @@
-from save_history.SpreadsheetBuilder import SpreadsheetBuilder
+from spreadsheet.SpreadsheetBuilder import SpreadsheetBuilder
 from xlsxwriter import worksheet
 
 class BreakPointSheetBuilder(SpreadsheetBuilder):
@@ -6,7 +6,7 @@ class BreakPointSheetBuilder(SpreadsheetBuilder):
     def createSheet(self, workbook) -> worksheet:
         return workbook.add_worksheet("Breakpoints")
     
-    def createSheetHeaders(self, worksheet):
+    def createSheetHeaders(self, worksheet) -> int:
         headers = [
             "Breakpoint Number",
             "Address at Breakpoint",
@@ -18,3 +18,5 @@ class BreakPointSheetBuilder(SpreadsheetBuilder):
         ]
         for columnNumber, header in enumerate(headers):
             worksheet.write(0, columnNumber, header)
+        
+        return len(headers)

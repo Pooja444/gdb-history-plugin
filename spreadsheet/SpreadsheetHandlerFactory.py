@@ -1,4 +1,4 @@
-from save_history.SpreadsheetHandler import SpreadsheetHandler
+from spreadsheet.SpreadsheetHandler import SpreadsheetHandler
 
 spreadsheetHandler = None
 
