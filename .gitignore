@@ -1,0 +1,6 @@
+.vscode
+**/__pycache__/
+*.pyc
+.gdb_history
+gdb_history*
+test/
