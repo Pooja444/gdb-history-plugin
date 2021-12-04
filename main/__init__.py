@@ -1,11 +1,20 @@
+import atexit
+
+from save_history.SpreadsheetHandlerFactory import getSpreadsheetHandler
 from breakpoint.BreakPointHandler import BreakPointHandler
-from save_history.SpreadsheetFactory import getSpreadsheetGenerator
-from save_history.SpreadsheetGenerator import SpreadsheetGenerator
+from registers.ResgiterHandler import RegistersHandler
 
 print("Starting custom GDB plugin...")
 print("The GDB history spreadsheet will be generated and stored in your home directory")
 
-spreadsheetGenerator = getSpreadsheetGenerator()
-spreadsheetGenerator.createSpreadsheet()
+spreadsheetHandler = getSpreadsheetHandler()
+
+spreadsheetHandler.createSpreadsheet()
 BreakPointHandler()
-spreadsheetGenerator.saveSpreadsheet()
+RegistersHandler()
+
+def exit_handler():
+    print("Exiting...")
+    spreadsheetHandler.saveSpreadsheet()
+
+atexit.register(exit_handler)
