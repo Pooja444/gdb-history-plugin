@@ -1,13 +1,22 @@
 from save_history.SpreadsheetBuilder import SpreadsheetBuilder
 from xlsxwriter import worksheet
+import gdb
 
 class RegistersSheetBuilder(SpreadsheetBuilder):
 
     def createSheet(self, workbook) -> worksheet:
+        print("Creating registers worksheet...")
         return workbook.add_worksheet("Registers")
     
     def createSheetHeaders(self, worksheet):
-        registers = ["RAX", "RBX", "RCX", "RDX", "RDI", "RSI", "RSP", "RBP", "RIP"]
+        worksheet.write(0, 0, "Breakpoint number")
+        
+        gdbRegisters = [register.split() for register in gdb.execute("info registers", False, True).split("\n")][:-1]
+        registers = []
+
+        for gdbRegister in gdbRegisters:
+            registers.append(gdbRegister[0])
+
         headers = []
         
         for register in registers:
@@ -15,4 +24,4 @@ class RegistersSheetBuilder(SpreadsheetBuilder):
             headers.append(f"Resolved value at {register}")
         
         for columnNumber, header in enumerate(headers):
-            worksheet.write(0, columnNumber, header)
+            worksheet.write(0, columnNumber + 1, header)

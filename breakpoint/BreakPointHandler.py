@@ -1,6 +1,8 @@
 import gdb
 from save_history.SpreadsheetHandlerFactory import getSpreadsheetHandler
 from save_history.SpreadsheetBuilderFactory import getSheetBuilder
+from registers.RegistersHandlerFactory import getRegistersHandler
+from util.utils import getSubstring
 
 
 class BreakPointHandler:
@@ -29,27 +31,20 @@ class BreakPointHandler:
     def breakpoint_handler(self, event):
         if hasattr(event, "breakpoints"):
             breakpoint = event.breakpoints[0]
+            self.breakpointNumber = breakpoint.number
 
             # TODO: For call instructions, we can try to find function name using info symbol <addr>
             breakpointValues = [
-                breakpoint.number, 
-                self.getResult("=", gdb.execute("p/x $rip", False, True)),
+                self.breakpointNumber, 
+                getSubstring("=", gdb.execute("p/x $rip", False, True)),
                 breakpoint.location,
-                self.getResult(":", gdb.execute("x/i $rip", False, True)),
-                "\n".join([self.getResult(":", instruction) for instruction in gdb.execute("x/4i $rip", False, True).split("\n")]),
+                getSubstring(":", gdb.execute("x/i $rip", False, True)),
+                "\n".join([getSubstring(":", instruction) for instruction in gdb.execute("x/5i $rip", False, True).split("\n")][1:]),
                 gdb.execute("bt", False, True)
             ]
 
             for columnIndex, breakpointValue in enumerate(breakpointValues):
                 self.worksheet.write(self.breakpointsHit + 1, columnIndex, breakpointValue)
 
+            getRegistersHandler().fillRegisters(self)
             self.breakpointsHit += 1
-            # print("OMG a breakpoint has been detected!")
-            # print(breakpoint.is_valid())
-            # print(breakpoint.number)
-            # print(breakpoint.location)
-            # registers = [register.split() for register in gdb.execute("info registers", False, True).split("\n")]
-            # print(registers)
-
-    def getResult(self, findSubstring, result):
-        return result[result.find(findSubstring) + 1:].strip()
