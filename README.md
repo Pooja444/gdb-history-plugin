@@ -46,4 +46,4 @@ The plugin essentially follows the below algorithm -
 * Make sure you have Python installed as the plugin runs on Python
 * Run ./setup.sh and you're good to go!
 
-This project will have more improvements in the future. Please reach out for any bug reports.
+This project will have more improvements in the future. Please reach out with any bug reports.
