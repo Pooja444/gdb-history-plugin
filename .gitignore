@@ -4,3 +4,4 @@
 .gdb_history
 history/
 test/
+venv
