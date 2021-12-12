@@ -16,10 +16,10 @@ The spreadsheet will have two sheets
     * Trigger command - The command that was used to trigger the breakpoint (e.g. `b *main+100` or `break 0x1875`)
     * Instruction at breakpoint - The instruction that will be executed on the breakpoint
     * Next 4 instructions - The next 4 instructions that will be executed after this breakpoint
-    * Backtrace - The curren backtrace
+    * Backtrace - The current backtrace
     * Link to register states - A link to all the register states at this breakpoint, present on the next sheet, for easy reference
 
-* Registers - When the first breakpoint hits, this plugin extracts all the registers present on the current architecture by running a GDB `info registers` command, making the plugin architecture indepenent. For every extracted register, whenever a breakpoint is hit, below two values will be stored:
+* Registers - When the first breakpoint hits, this plugin extracts all the registers present on the current architecture by running a GDB `info registers` command, making the plugin architecture independent. For every extracted register, whenever a breakpoint is hit, below two values will be stored:
     * Value at the register
     * If the value at the register can be resolved (i.e. potential memory address), then the resolved value will also be stored
 
